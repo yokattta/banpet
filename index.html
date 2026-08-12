@@ -8,6 +8,7 @@
   <title>班宠 · 陪你把今天工资挣完</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="v2.css" />
+  <link rel="stylesheet" href="v3.css" />
   <style>.settings{grid-template-columns:.85fr 1.2fr 1fr 1fr 1fr 1.4fr}@media(max-width:800px){.settings{grid-template-columns:1fr 1fr}}</style>
 </head>
 <body>
@@ -120,6 +121,7 @@
 
       <div class="actions">
         <button id="pokeButton" type="button">戳戳它</button>
+        <button id="reportButton" type="button">月报 / 年报</button>
         <button id="summaryButton" type="button">查看今日结算</button>
         <button id="shareButton" type="button">分享我的班宠</button>
       </div>
@@ -138,6 +140,17 @@
     </dl>
     <blockquote id="summaryVerdict">“活干完多少不确定，钱确实拿到了一些。”</blockquote>
     <button class="primary" id="summaryShare" type="button">复制今日结算 <span>↗</span></button>
+  </dialog>
+  <dialog class="summary-dialog report-dialog" id="reportDialog">
+    <button class="dialog-close" id="reportClose" type="button" aria-label="关闭">×</button>
+    <div class="summary-date">WORK SURVIVAL ARCHIVE</div>
+    <div class="report-tabs" role="tablist"><button class="active" id="monthTab" type="button">本月</button><button id="yearTab" type="button">今年</button></div>
+    <h2 id="reportTitle">本月忍耐报告</h2>
+    <p class="report-note">仅统计在这台设备上打开班宠的日期</p>
+    <div class="summary-total"><span>累计忍耐费</span><strong id="reportEarned">$0.00</strong></div>
+    <dl><div><dt>记录天数</dt><dd id="reportDays">0 天</dd></div><div><dt>会议收入</dt><dd id="reportMeetingMoney">$0.00</dd></div><div><dt>会议时长</dt><dd id="reportMeetingTime">00:00:00</dd></div><div><dt>精神损伤</dt><dd id="reportFrustration">0 次</dd></div></dl>
+    <blockquote id="reportVerdict">“档案还是空的，先去上一天班。”</blockquote>
+    <button class="primary" id="reportShare" type="button">复制忍耐报告 <span>↗</span></button>
   </dialog>
   <footer><span>钱会到账，班也会下完。</span><span>所有工资数据只存在你的设备里。</span></footer>
   <script src="app.js"></script>

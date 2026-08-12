@@ -1,0 +1,1 @@
+.report-tabs{display:flex;gap:8px;justify-content:center;margin:20px 0}.report-tabs button{border:1.5px solid var(--ink);background:transparent;padding:8px 18px;font-weight:800;cursor:pointer}.report-tabs button.active{background:var(--ink);color:var(--paper)}.report-note{text-align:center;color:var(--muted);font-size:11px;margin:-16px 0 22px}
