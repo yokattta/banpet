@@ -14,3 +14,9 @@
 ## 产品范围
 
 当前版本用于验证“班宠匹配是否能带来分享，以及工资计时是否能带来次日回访”。AI 对话、原生桌面悬浮窗、账号系统和付费皮肤暂不包含。
+
+## Mac 菜单栏内部版
+
+`macos/` 包含一个纯本地 SwiftUI 菜单栏应用：自动计算工资和下班倒计时，可选读取 Apple Calendar 会议时长。它不保存会议标题，也不需要后端。
+
+构建需要完整 Xcode 26.1 或与本机 macOS SDK 匹配的 Apple Swift 工具链：进入 `macos/` 后运行 `./build-app.sh`，成品位于 `macos/dist/Banpet.app`。
