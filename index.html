@@ -7,6 +7,7 @@
   <meta name="description" content="领养一只陪你把今天工资挣完的班宠。" />
   <title>班宠 · 陪你把今天工资挣完</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="v2.css" />
   <style>.settings{grid-template-columns:.85fr 1.2fr 1fr 1fr 1fr 1.4fr}@media(max-width:800px){.settings{grid-template-columns:1fr 1fr}}</style>
 </head>
 <body>
@@ -100,12 +101,44 @@
         <button class="secondary" type="submit">开始今天的投喂</button>
       </form>
 
+      <section class="workday-tools" aria-label="今日班味记录">
+        <article class="tool-card meeting-tool">
+          <div class="tool-kicker">MEETING BURN RATE</div>
+          <h3>这场会正在烧钱</h3>
+          <strong id="meetingMoney">$0.00</strong>
+          <p><span id="meetingTime">00:00:00</span> · 本可以是一封邮件</p>
+          <button id="meetingButton" type="button">开始无效会议</button>
+        </article>
+        <article class="tool-card frustration-tool">
+          <div class="tool-kicker">MENTAL DAMAGE</div>
+          <h3>今天被工作气到</h3>
+          <strong><span id="frustrationCount">0</span><small> 次</small></strong>
+          <p id="frustrationCaption">目前情绪尚可，继续观察。</p>
+          <button id="frustrationButton" type="button">又被气到了 +1</button>
+        </article>
+      </section>
+
       <div class="actions">
         <button id="pokeButton" type="button">戳戳它</button>
+        <button id="summaryButton" type="button">查看今日结算</button>
         <button id="shareButton" type="button">分享我的班宠</button>
       </div>
     </section>
   </main>
+  <dialog class="summary-dialog" id="summaryDialog">
+    <button class="dialog-close" id="summaryClose" type="button" aria-label="关闭">×</button>
+    <div class="summary-date" id="summaryDate">TODAY</div>
+    <div class="summary-pet" id="summaryPet">🐈</div>
+    <h2>今日忍耐结算单</h2>
+    <div class="summary-total"><span>公司今日支付忍耐费</span><strong id="summaryEarned">$0.00</strong></div>
+    <dl>
+      <div><dt>无效会议收入</dt><dd id="summaryMeeting">$0.00</dd></div>
+      <div><dt>累计会议时长</dt><dd id="summaryMeetingTime">00:00:00</dd></div>
+      <div><dt>精神损伤记录</dt><dd id="summaryFrustration">0 次</dd></div>
+    </dl>
+    <blockquote id="summaryVerdict">“活干完多少不确定，钱确实拿到了一些。”</blockquote>
+    <button class="primary" id="summaryShare" type="button">复制今日结算 <span>↗</span></button>
+  </dialog>
   <footer><span>钱会到账，班也会下完。</span><span>所有工资数据只存在你的设备里。</span></footer>
   <script src="app.js"></script>
 </body>
