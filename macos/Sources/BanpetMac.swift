@@ -145,7 +145,6 @@ final class WorkdayModel: ObservableObject {
 
 struct BanpetMenu: View {
     @ObservedObject var model: WorkdayModel
-    @Environment(\.openSettings) private var openSettings
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -170,7 +169,7 @@ struct BanpetMenu: View {
             HStack { event("🌱 兴趣技能", model.lifeSkillCount, "lifeSkill"); event("🎭 假面营业", model.maskCount, "mask") }
             event("✨ 开心时刻", model.joyCount, "joy")
             HStack {
-                Button("设置") { openSettings() }
+                SettingsLink { Text("设置") }
                 Spacer()
                 Button("退出班宠") { NSApplication.shared.terminate(nil) }
             }
