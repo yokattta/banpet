@@ -7,6 +7,7 @@
   <meta name="description" content="领养一只陪你把今天工资挣完的班宠。" />
   <title>班宠 · 陪你把今天工资挣完</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>.settings{grid-template-columns:.85fr 1.2fr 1fr 1fr 1fr 1.4fr}@media(max-width:800px){.settings{grid-template-columns:1fr 1fr}}</style>
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -75,13 +76,13 @@
         <div class="speech" id="speech">先设置工资，我替你盯着。</div>
         <div class="pet" id="petEmoji" role="img" aria-label="你的班宠">🐈</div>
         <div class="shadow"></div>
-        <span class="coin c1">¥</span><span class="coin c2">¥</span><span class="coin c3">¥</span>
+        <span class="coin c1">$</span><span class="coin c2">$</span><span class="coin c3">$</span>
       </div>
 
       <section class="salary-card">
         <div class="salary-main">
           <span>今天已从公司拿回</span>
-          <strong><small>¥</small><span id="earned">0.00</span></strong>
+          <strong><small id="earnedSymbol">$</small><span id="earned">0.00</span></strong>
         </div>
         <div class="countdown">
           <span>距离下班</span>
@@ -91,7 +92,8 @@
       </section>
 
       <form class="settings" id="salaryForm">
-        <label>月薪 <span><b>¥</b><input id="salary" type="number" min="0" step="100" value="12000"></span></label>
+        <label>货币 <select id="currency"><option value="USD" selected>USD · $</option><option value="CNY">CNY · ¥</option><option value="EUR">EUR · €</option><option value="GBP">GBP · £</option><option value="JPY">JPY · ¥</option><option value="CAD">CAD · C$</option><option value="AUD">AUD · A$</option></select></label>
+        <label>月薪 <span><b id="salarySymbol">$</b><input id="salary" type="number" min="0" step="100" value="5000"></span></label>
         <label>上班 <input id="startTime" type="time" value="09:00"></label>
         <label>下班 <input id="endTime" type="time" value="18:00"></label>
         <label>每月工作日 <input id="workDays" type="number" min="1" max="31" value="21.75"></label>

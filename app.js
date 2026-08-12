@@ -9,6 +9,7 @@ const pets=[
 const $=s=>document.querySelector(s);
 const quiz=$('#quizView'),dashboard=$('#dashboardView'),form=$('#petForm');
 let currentPet=pets[0],timer;
+const currencies={USD:{symbol:'$',locale:'en-US'},CNY:{symbol:'¥',locale:'zh-CN'},EUR:{symbol:'€',locale:'de-DE'},GBP:{symbol:'£',locale:'en-GB'},JPY:{symbol:'¥',locale:'ja-JP'},CAD:{symbol:'C$',locale:'en-CA'},AUD:{symbol:'A$',locale:'en-AU'}};
 function hash(text){return [...text].reduce((a,c)=>((a<<5)-a+c.charCodeAt(0))|0,7)}
 function choosePet(random=false){
   const mbti=random?'random':$('#mbti').value,zodiac=random?'random':$('#zodiac').value,mood=random?'命运随机':document.querySelector('[name=mood]:checked').value;
@@ -28,16 +29,17 @@ function showDashboard(profile){
 function minutes(v){const [h,m]=v.split(':').map(Number);return h*60+m}
 function startCounter(){clearInterval(timer);updateCounter();timer=setInterval(updateCounter,1000)}
 function updateCounter(){
-  const salary=Number($('#salary').value)||0,days=Number($('#workDays').value)||21.75,start=minutes($('#startTime').value),end=minutes($('#endTime').value),total=Math.max(1,end-start);
+  const salary=Number($('#salary').value)||0,days=Number($('#workDays').value)||21.75,start=minutes($('#startTime').value),end=minutes($('#endTime').value),total=Math.max(1,end-start),money=currencies[$('#currency').value]||currencies.USD;
   const now=new Date(),nowMin=now.getHours()*60+now.getMinutes()+now.getSeconds()/60,worked=Math.min(total,Math.max(0,nowMin-start)),earned=salary/days*(worked/total),remaining=Math.max(0,(end-nowMin)*60);
-  $('#earned').textContent=earned.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+  $('#earned').textContent=earned.toLocaleString(money.locale,{minimumFractionDigits:2,maximumFractionDigits:2});$('#earnedSymbol').textContent=money.symbol;$('#salarySymbol').textContent=money.symbol;document.querySelectorAll('.coin').forEach(c=>c.textContent=money.symbol);
   const h=Math.floor(remaining/3600),m=Math.floor(remaining%3600/60),s=Math.floor(remaining%60);$('#countdown').textContent=[h,m,s].map(n=>String(n).padStart(2,'0')).join(':');
   $('#progressBar').style.width=`${worked/total*100}%`;
   if(nowMin>=end)$('#speech').textContent='到点了。钱拿好，我们走。'; else if(nowMin<start)$('#speech').textContent='还没上班，先活一会儿。';
 }
-function restoreSettings(){const s=JSON.parse(localStorage.getItem('banpetSalary')||'null');if(s)Object.entries(s).forEach(([k,v])=>{const el=$(`#${k}`);if(el)el.value=v})}
+function restoreSettings(){const s=JSON.parse(localStorage.getItem('banpetSalary')||'null');if(s){if(!s.currency)s.currency='CNY';Object.entries(s).forEach(([k,v])=>{const el=$(`#${k}`);if(el)el.value=v})}}
 form.addEventListener('submit',e=>{e.preventDefault();choosePet(false)});$('#randomButton').addEventListener('click',()=>choosePet(true));
-$('#salaryForm').addEventListener('submit',e=>{e.preventDefault();const data={salary:$('#salary').value,startTime:$('#startTime').value,endTime:$('#endTime').value,workDays:$('#workDays').value};localStorage.setItem('banpetSalary',JSON.stringify(data));$('#speech').textContent='计时开始。今天的每一分钟都有价。';startCounter()});
+$('#salaryForm').addEventListener('submit',e=>{e.preventDefault();const data={currency:$('#currency').value,salary:$('#salary').value,startTime:$('#startTime').value,endTime:$('#endTime').value,workDays:$('#workDays').value};localStorage.setItem('banpetSalary',JSON.stringify(data));$('#speech').textContent='计时开始。今天的每一分钟都有价。';startCounter()});
+$('#currency').addEventListener('change',updateCounter);
 $('#pokeButton').addEventListener('click',()=>{const p=$('#petEmoji');p.classList.remove('bounce');void p.offsetWidth;p.classList.add('bounce');$('#speech').textContent=currentPet.lines[Math.floor(Math.random()*currentPet.lines.length)]});
 $('#petEmoji').addEventListener('click',()=>$('#pokeButton').click());
 $('#resetButton').addEventListener('click',()=>{dashboard.classList.add('hidden');quiz.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})});
