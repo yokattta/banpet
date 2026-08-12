@@ -136,11 +136,27 @@
         </article>
       </section>
 
+      <section class="life-tools" aria-label="今日状态记录">
+        <div class="tool-kicker">LIFE AT WORK · 不止是忍耐</div>
+        <h3>今天还发生了什么</h3>
+        <div class="life-grid">
+          <button type="button" data-event="focus"><span>🎧</span><b>专注时间</b><small id="focusValue">开始计时</small></button>
+          <button type="button" data-event="flow"><span>🌊</span><b>进入心流</b><small id="flowValue">0 次</small></button>
+          <button type="button" data-event="workSkill"><span>🧠</span><b>工作技能</b><small id="workSkillValue">0 次</small></button>
+          <button type="button" data-event="lifeSkill"><span>🌱</span><b>兴趣技能</b><small id="lifeSkillValue">0 次</small></button>
+          <button type="button" data-event="mask"><span>🎭</span><b>假面营业</b><small id="maskValue">0 次</small></button>
+          <button type="button" data-event="joy"><span>✨</span><b>开心时刻</b><small id="joyValue">0 次</small></button>
+        </div>
+      </section>
+
       <div class="actions">
         <button id="pokeButton" type="button">戳戳它</button>
         <button id="reportButton" type="button">月报 / 年报</button>
         <button id="summaryButton" type="button">查看今日结算</button>
         <button id="shareButton" type="button">分享我的班宠</button>
+        <button id="exportButton" type="button">导出本地数据</button>
+        <button id="importButton" type="button">导入数据</button>
+        <input class="hidden" id="importFile" type="file" accept="application/json,.json">
       </div>
     </section>
   </main>
