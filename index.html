@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="v2.css" />
   <link rel="stylesheet" href="v3.css" />
+  <link rel="stylesheet" href="fortune.css" />
   <style>.settings{grid-template-columns:.85fr 1.2fr 1fr 1fr 1fr 1.4fr}@media(max-width:800px){.settings{grid-template-columns:1fr 1fr}}</style>
 </head>
 <body>
@@ -91,6 +92,22 @@
           <strong id="countdown">--:--:--</strong>
         </div>
         <div class="progress"><span id="progressBar"></span></div>
+      </section>
+
+      <section class="fortune-card" id="fortuneCard">
+        <div class="fortune-head">
+          <div><div class="tool-kicker">DAILY OFFICE ALMANAC · 娱乐型班运</div><h3>班宠今日黄历</h3></div>
+          <div class="fortune-score"><strong id="workAvoidScore">--</strong><span>% 不宜上班</span></div>
+        </div>
+        <div class="element-weather"><span id="elementDot"></span><b id="elementWeather">今日五行天气</b><small id="fortuneIdentity">星座 × MBTI</small></div>
+        <div class="fortune-grid">
+          <div class="fortune-item good"><span>宜</span><strong id="fortuneGood">安静计费</strong></div>
+          <div class="fortune-item bad"><span>忌</span><strong id="fortuneBad">主动汇报</strong></div>
+          <div class="fortune-item"><span>幸运色</span><strong id="luckyColor">摸鱼绿</strong></div>
+          <div class="fortune-item"><span>摸鱼吉时</span><strong id="luckyTime">15:20–16:10</strong></div>
+        </div>
+        <blockquote id="fortuneVerdict">“天意让你上班，工资让你忍耐。”</blockquote>
+        <button id="fortuneShare" type="button">复制今日班运 ↗</button>
       </section>
 
       <form class="settings" id="salaryForm">

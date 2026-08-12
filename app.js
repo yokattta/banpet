@@ -24,8 +24,19 @@ function showDashboard(profile){
   $('#petTitle').textContent=currentPet.name;$('#petRole').textContent=currentPet.role;$('#petQuote').textContent=`“${currentPet.quote}”`;
   $('#resultTag').textContent=`${profile.mbti==='random'?'神秘人格':profile.mbti} × ${profile.zodiac==='random'?'宇宙随机':profile.zodiac} × ${profile.mood}`;
   $('#traits').innerHTML=currentPet.traits.map(t=>`<span>${t}</span>`).join('');$('#speech').textContent=currentPet.lines[0];
-  quiz.classList.add('hidden');dashboard.classList.remove('hidden');restoreSettings();startCounter();window.scrollTo({top:0,behavior:'smooth'});
+  quiz.classList.add('hidden');dashboard.classList.remove('hidden');restoreSettings();renderFortune(profile);startCounter();window.scrollTo({top:0,behavior:'smooth'});
 }
+const fortuneElements=[
+  {name:'木旺 · 适合开新坑',color:'生长绿',bg:'#dff0c4',accent:'#79a94b',good:['整理待办','温柔拒绝','先做自己的事'],bad:['临时接活','替人收尾','在群里立 flag']},
+  {name:'火旺 · 班味偏热',color:'降温蓝',bg:'#ffd4c9',accent:'#f06e56',good:['冷处理需求','晚点再回复','喝冰咖啡'],bad:['激情输出','当场争论','秒回“在吗”']},
+  {name:'土旺 · 稳住别动',color:'工位米',bg:'#eadfc3',accent:'#a88b53',good:['按部就班','清理旧任务','准点吃饭'],bad:['主动创新','改变流程','替老板操心']},
+  {name:'金旺 · 适合拒绝',color:'边界银',bg:'#e4e7e5',accent:'#7b8580',good:['明确边界','删减需求','用数据说话'],bad:['提供情绪价值','接受模糊需求','免费加急']},
+  {name:'水旺 · 宜顺势摸鱼',color:'摸鱼蓝',bg:'#cfe8f5',accent:'#4d93b5',good:['带薪思考','静音群聊','让需求流走'],bad:['强行推进','主动开会','解释太多']}
+];
+const fortuneVerdicts=['今天适合冷处理，不适合热情配合。','天意让你上班，工资让你忍耐。','今日最大的吉兆，是会议取消。','不必燃烧自己，公司没有付燃料费。','先观察，很多需求会自行消失。','宜把复杂问题留给明天更有工资的自己。'];
+let todayFortune=null;
+function seeded(seed,max){return Math.abs(hash(seed))%max}
+function renderFortune(profile){const seed=`${todayKey()}-${profile.mbti}-${profile.zodiac}-${currentPet.id}`,element=fortuneElements[seeded(seed,fortuneElements.length)],start=14+seeded(seed+'time',3),minute=[10,20,30,40][seeded(seed+'minute',4)],score=Math.min(96,48+seeded(seed+'score',44)+Math.min(8,daily?.frustration||0));todayFortune={score,element,good:element.good[seeded(seed+'good',element.good.length)],bad:element.bad[seeded(seed+'bad',element.bad.length)],time:`${start}:${String(minute).padStart(2,'0')}–${start+1}:${String((minute+40)%60).padStart(2,'0')}`,verdict:fortuneVerdicts[seeded(seed+'verdict',fortuneVerdicts.length)],identity:`${profile.zodiac==='random'?'神秘星座':profile.zodiac} × ${profile.mbti==='random'?'自由人格':profile.mbti}`};$('#workAvoidScore').textContent=todayFortune.score;$('#elementWeather').textContent=element.name;$('#fortuneIdentity').textContent=todayFortune.identity;$('#fortuneGood').textContent=todayFortune.good;$('#fortuneBad').textContent=todayFortune.bad;$('#luckyColor').textContent=element.color;$('#luckyTime').textContent=todayFortune.time;$('#fortuneVerdict').textContent=`“${todayFortune.verdict}”`;$('#fortuneCard').style.setProperty('--fortune-bg',element.bg);$('#fortuneCard').style.setProperty('--fortune-accent',element.accent)}
 function minutes(v){const [h,m]=v.split(':').map(Number);return h*60+m}
 function startCounter(){clearInterval(timer);updateCounter();timer=setInterval(updateCounter,1000)}
 function updateCounter(){
@@ -47,6 +58,7 @@ $('#pokeButton').addEventListener('click',()=>{const p=$('#petEmoji');p.classLis
 $('#petEmoji').addEventListener('click',()=>$('#pokeButton').click());
 $('#resetButton').addEventListener('click',()=>{dashboard.classList.add('hidden');quiz.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})});
 $('#shareButton').addEventListener('click',async()=>{const text=`我的命定班宠是 ${currentPet.emoji} ${currentPet.name}｜${currentPet.role}\n“${currentPet.quote}”\n来领养一只陪你上班的东西。`;try{if(navigator.share)await navigator.share({title:'我的命定班宠',text,url:location.href});else{await navigator.clipboard.writeText(`${text}\n${location.href}`);$('#speech').textContent='结果已复制，去吓同事一跳。'}}catch{}});
+$('#fortuneShare').addEventListener('click',async()=>{if(!todayFortune)return;const text=`${currentPet.emoji} 班宠今日黄历\n${todayFortune.identity}\n今日 ${todayFortune.score}% 不宜上班\n${todayFortune.element.name}\n宜：${todayFortune.good}\n忌：${todayFortune.bad}\n幸运色：${todayFortune.element.color}\n摸鱼吉时：${todayFortune.time}\n“${todayFortune.verdict}”\n娱乐型班运 · ${location.href}`;await navigator.clipboard.writeText(text);$('#fortuneShare').textContent='今日班运已复制 ✓'});
 
 const todayKey=()=>new Date().toLocaleDateString('en-CA');
 function loadDaily(){const saved=JSON.parse(localStorage.getItem('banpetDaily')||'null');return saved?.date===todayKey()?saved:{date:todayKey(),frustration:0,meetingSeconds:0,meetingStartedAt:null}}
