@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f4ea" />
+  <meta name="description" content="领养一只陪你把今天工资挣完的班宠。" />
+  <title>班宠 · 陪你把今天工资挣完</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="班宠首页"><span class="brand-dot"></span> 班宠</a>
+      <button class="text-button" id="resetButton" type="button">重新分配</button>
+    </header>
+
+    <section class="hero" id="quizView">
+      <div class="eyebrow">OFFICE COMPANION · 内测版</div>
+      <h1>领养一只<br><em>陪你上班</em>的东西。</h1>
+      <p class="lede">它不知道工作有什么意义，但知道你今天赚了多少钱。</p>
+
+      <form class="quiz-card" id="petForm">
+        <div class="step">
+          <span class="step-number">01</span>
+          <div>
+            <label for="mbti">你的 MBTI</label>
+            <select id="mbti" name="mbti">
+              <option value="random">不知道 / 随便吧</option>
+              <option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option>
+              <option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option>
+              <option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option>
+              <option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option>
+            </select>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-number">02</span>
+          <div>
+            <label for="zodiac">你的星座</label>
+            <select id="zodiac" name="zodiac">
+              <option value="random">让宇宙随机决定</option>
+              <option>白羊座</option><option>金牛座</option><option>双子座</option><option>巨蟹座</option>
+              <option>狮子座</option><option>处女座</option><option>天秤座</option><option>天蝎座</option>
+              <option>射手座</option><option>摩羯座</option><option>水瓶座</option><option>双鱼座</option>
+            </select>
+          </div>
+        </div>
+        <fieldset class="mood-fieldset">
+          <legend><span class="step-number">03</span> 今天的精神状态</legend>
+          <div class="moods">
+            <label><input type="radio" name="mood" value="还能忍" checked><span>还能忍</span></label>
+            <label><input type="radio" name="mood" value="有点烦"><span>有点烦</span></label>
+            <label><input type="radio" name="mood" value="想静静"><span>想静静</span></label>
+            <label><input type="radio" name="mood" value="想辞职"><span>想辞职</span></label>
+          </div>
+        </fieldset>
+        <button class="primary" type="submit">领取我的命定班宠 <span>→</span></button>
+        <button class="random-link" id="randomButton" type="button">不想填，命运替我选</button>
+      </form>
+      <p class="disclaimer">MBTI 与星座仅供娱乐，真正懂你的，是下班时间。</p>
+    </section>
+
+    <section class="dashboard hidden" id="dashboardView">
+      <div class="result-copy">
+        <div class="eyebrow" id="resultTag">你的命定班宠</div>
+        <h2 id="petTitle">工位猫</h2>
+        <p class="pet-role" id="petRole">需求拒绝师</p>
+        <blockquote id="petQuote">“这个需求配不上你的时薪。”</blockquote>
+        <div class="traits" id="traits"></div>
+      </div>
+
+      <div class="pet-stage">
+        <div class="speech" id="speech">先设置工资，我替你盯着。</div>
+        <div class="pet" id="petEmoji" role="img" aria-label="你的班宠">🐈</div>
+        <div class="shadow"></div>
+        <span class="coin c1">¥</span><span class="coin c2">¥</span><span class="coin c3">¥</span>
+      </div>
+
+      <section class="salary-card">
+        <div class="salary-main">
+          <span>今天已从公司拿回</span>
+          <strong><small>¥</small><span id="earned">0.00</span></strong>
+        </div>
+        <div class="countdown">
+          <span>距离下班</span>
+          <strong id="countdown">--:--:--</strong>
+        </div>
+        <div class="progress"><span id="progressBar"></span></div>
+      </section>
+
+      <form class="settings" id="salaryForm">
+        <label>月薪 <span><b>¥</b><input id="salary" type="number" min="0" step="100" value="12000"></span></label>
+        <label>上班 <input id="startTime" type="time" value="09:00"></label>
+        <label>下班 <input id="endTime" type="time" value="18:00"></label>
+        <label>每月工作日 <input id="workDays" type="number" min="1" max="31" value="21.75"></label>
+        <button class="secondary" type="submit">开始今天的投喂</button>
+      </form>
+
+      <div class="actions">
+        <button id="pokeButton" type="button">戳戳它</button>
+        <button id="shareButton" type="button">分享我的班宠</button>
+      </div>
+    </section>
+  </main>
+  <footer><span>钱会到账，班也会下完。</span><span>所有工资数据只存在你的设备里。</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
