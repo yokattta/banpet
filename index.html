@@ -63,6 +63,11 @@
         <button class="primary" type="submit">领取我的命定班宠 <span>→</span></button>
         <button class="random-link" id="randomButton" type="button">不想填，命运替我选</button>
       </form>
+
+      <section class="attendance-card">
+        <div><div class="tool-kicker">CLOCK IN · 不多送一分钟</div><h3 id="attendanceTitle">今天开始计费了吗？</h3><p id="attendanceLine">确认一下即可，不会自动猜你的上下班。</p></div>
+        <div class="attendance-actions"><button id="attendanceButton" type="button">确认开工</button><button id="reminderButton" type="button">开启下班提醒</button></div>
+      </section>
       <p class="disclaimer">MBTI 与星座仅供娱乐，真正懂你的，是下班时间。</p>
     </section>
 
@@ -162,6 +167,8 @@
         <button id="exportButton" type="button">导出本地数据</button>
         <button id="importButton" type="button">导入数据</button>
         <input class="hidden" id="importFile" type="file" accept="application/json,.json">
+        <button id="calendarButton" type="button">导入 .ics 日历</button>
+        <input class="hidden" id="calendarFile" type="file" accept="text/calendar,.ics">
       </div>
     </section>
   </main>
